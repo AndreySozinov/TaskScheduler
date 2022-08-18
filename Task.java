@@ -28,9 +28,17 @@ public class Task {
         this.authorLastName = authorLastName;
     }
 
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public Calendar getDeadline() {
+        return deadline;
+    }
+
     @Override
     public String toString() {
         return String.format("Priority: %s Task: %s Date: %s Deadline: %s Author: %s %s", 
-                            priority, taskTitle, date, deadline, authorFirstName, authorLastName);
+                            priority, taskTitle, date, deadline.getTime(), authorFirstName, authorLastName);
     }
 }
