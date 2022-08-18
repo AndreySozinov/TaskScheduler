@@ -18,27 +18,36 @@ import java.util.GregorianCalendar;
 public class Program {
     public static void main(String[] args) {
         Calendar deadlineTask01 = new GregorianCalendar(2023, 0, 21);
-        Task task01 = new Task(Priority.IMMIDIATE, "Start", deadlineTask01, "Andrey", "Petrov");
+        Task task01 = new TaskHighPriority("Start", deadlineTask01, "Andrey", "Petrov");
 
         Calendar deadlineTask02 = new GregorianCalendar(2022, 10, 15);
-        Task task02 = new Task(Priority.IMMIDIATE, "Agreement", deadlineTask02, "Andrey", "Petrov");
+        Task task02 = new TaskHighPriority("Agreement", deadlineTask02, "Andrey", "Petrov");
 
         Calendar deadlineTask03 = new GregorianCalendar(2022, 11, 23);
-        Task task03 = new Task(Priority.IMMIDIATE, "Work", deadlineTask03, "George", "Smith");
+        Task task03 = new TaskHighPriority("Work", deadlineTask03, "George", "Smith");
 
         Calendar deadlineTask04 = new GregorianCalendar(2022, 9, 23);
-        Task task04 = new Task(Priority.LOW, "Change gifs", deadlineTask04, "George", "Smith");
+        Task task04 = new TaskLowPriority("Change gifs", deadlineTask04, "George", "Smith");
 
-        Storage myStorage = new Storage();
-        myStorage.add(task01);
-        myStorage.add(task02);
-        myStorage.add(task03);
-        myStorage.add(task04);
+        Storage<Task> myStorage = new Storage<>();
+        myStorage.addTask(task01);
+        myStorage.addTask(task02);
+        myStorage.addTask(task03);
+        myStorage.addTask(task04);
 
         myStorage.showTasks();
 
-        SaveAs saveCsv = new SaveAs();
+        Storage<TaskHighPriority> highStorage = new Storage<>();
+        highStorage.addTask((TaskHighPriority)task01);
+        highStorage.addTask((TaskHighPriority)task02);
+        highStorage.addTask((TaskHighPriority)task03);
+
+        highStorage.showTasks();
+
+        SaveAs<Task> saveCsv = new SaveAs<>();
         saveCsv.csv(myStorage, "MyFile");
         
+        SaveAs<TaskHighPriority> saveXml = new SaveAs<>();
+        saveXml.xml(highStorage, "MyFile2");
     }
 }

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class Task {
     private String id;
-    private Priority priority;
+    //private Priority priority;
     private String taskTitle;
     private Date date;
     private Calendar deadline;
@@ -14,13 +14,11 @@ public class Task {
     private String authorLastName;
 
 
-    public Task(Priority priority, 
-                String taskTitle, 
+    public Task(String taskTitle, 
                 Calendar deadLine, 
                 String authorFirstName,
                 String authorLastName) {
         this.id = UUID.randomUUID().toString();
-        this.priority = priority;
         this.taskTitle = taskTitle;
         this.date = new Date();
         this.deadline = deadLine;
@@ -28,9 +26,9 @@ public class Task {
         this.authorLastName = authorLastName;
     }
 
-    public Priority getPriority() {
-        return priority;
-    }
+    // public Priority getPriority() {
+    //     return priority;
+    // }
 
     public Calendar getDeadline() {
         return deadline;
@@ -38,7 +36,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("Priority: %s Task: %s Date: %s Deadline: %s Author: %s %s", 
-                            priority, taskTitle, date, deadline.getTime(), authorFirstName, authorLastName);
+        return String.format("id: %s Task: %s Date: %s Deadline: %s Author: %s %s", 
+                            id, taskTitle, date, deadline.getTime(), authorFirstName, authorLastName);
     }
 }

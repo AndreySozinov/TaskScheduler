@@ -3,13 +3,13 @@ package scheduler;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class SaveAs {
-    public Storage storage;
+public class SaveAs<T extends Task> {
+    public Storage<T> storage;
     public String path;
     
 
     
-    public void csv(Storage storage, String path) {
+    public void csv(Storage<T> storage, String path) {
         try (FileWriter writer = new FileWriter(path + ".csv", false)) {
                 writer.write(addAllLines(storage));
                 writer.flush();
@@ -18,7 +18,7 @@ public class SaveAs {
             }
     }
 
-    public void json(Storage storage, String path) {
+    public void json(Storage<T> storage, String path) {
         try (FileWriter writer = new FileWriter(path + ".json", false)) {
                 writer.write(addAllLines(storage));
                 writer.flush();
@@ -27,7 +27,7 @@ public class SaveAs {
             }
     }
 
-    public void xml(Storage storage, String path) {
+    public void xml(Storage<T> storage, String path) {
         try (FileWriter writer = new FileWriter(path + ".xml", false)) {
                 writer.write(addAllLines(storage));
                 writer.flush();
@@ -36,15 +36,9 @@ public class SaveAs {
             }
     }
 
-    public String addAllLines(Storage stor) {
+    public String addAllLines(Storage<T> stor) {
         StringBuilder sb = new StringBuilder();
-        for (Task line : stor.highPriority) {
-            sb.append(line + "\n");
-        }
-        for (Task line : stor.mediumPriority) {
-            sb.append(line + "\n");
-        }
-        for (Task line : stor.lowPriority) {
+        for (Task line : stor.taskList) {
             sb.append(line + "\n");
         }
         return sb.toString();
