@@ -1,5 +1,6 @@
 package scheduler;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -16,7 +17,7 @@ import java.util.GregorianCalendar;
 // - другие компоненты;
 
 public class Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         Calendar deadlineTask01 = new GregorianCalendar(2023, 0, 21);
         Task task01 = new TaskHighPriority("Start", deadlineTask01, "Andrey", "Petrov");
 
@@ -36,6 +37,7 @@ public class Program {
         myStorage.addTask(task04);
 
         myStorage.showTasks();
+        System.out.println("-------------------------");
 
         Storage<TaskHighPriority> highStorage = new Storage<>();
         highStorage.addTask((TaskHighPriority)task01);
@@ -43,11 +45,12 @@ public class Program {
         highStorage.addTask((TaskHighPriority)task03);
 
         highStorage.showTasks();
+        System.out.println("-------------------------");
 
         SaveAs<Task> saveCsv = new SaveAs<>();
         saveCsv.csv(myStorage, "MyFile");
         
-        SaveAs<TaskHighPriority> saveXml = new SaveAs<>();
-        saveXml.xml(highStorage, "MyFile2");
+        ReadFile.readFile(myStorage, "MyFile.csv");
+        myStorage.showTasks();
     }
 }

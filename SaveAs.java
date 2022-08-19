@@ -8,7 +8,6 @@ public class SaveAs<T extends Task> {
     public String path;
     
 
-    
     public void csv(Storage<T> storage, String path) {
         try (FileWriter writer = new FileWriter(path + ".csv", false)) {
                 writer.write(addAllLines(storage));
@@ -18,6 +17,10 @@ public class SaveAs<T extends Task> {
             }
     }
 
+
+
+
+    // Запись json и xml работает неверно.
     public void json(Storage<T> storage, String path) {
         try (FileWriter writer = new FileWriter(path + ".json", false)) {
                 writer.write(addAllLines(storage));
@@ -39,7 +42,12 @@ public class SaveAs<T extends Task> {
     public String addAllLines(Storage<T> stor) {
         StringBuilder sb = new StringBuilder();
         for (Task line : stor.taskList) {
-            sb.append(line + "\n");
+            sb.append(line.getId() + "," + 
+                    line.getTaskTitle() + "," +
+                    line.getDate().getTime() + "," +
+                    line.getDeadline().getTime() + "," +
+                    line.getAuthorName() + "," +
+                    line.getAuthorLastName() + "\n");
         }
         return sb.toString();
     }
